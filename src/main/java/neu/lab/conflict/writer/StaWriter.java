@@ -27,15 +27,15 @@ public class StaWriter {
 		classDups = new ClassDups(DepJars.i());
 	}
 
-	public void writeResult() {
+	public void writeResult(String outPath,boolean append) {
 		// writeLevel();
-		writeDetail();
+		writeDetail(outPath,append);
 	}
 
-	public void writeDetail() {
+	public void writeDetail(String outPath,boolean append) {
 		try {
 			PrintWriter printer = new PrintWriter(
-					new BufferedWriter(new FileWriter(new File(UserConf.getOutDir() + "detail.txt"), true)));
+					new BufferedWriter(new FileWriter(new File(outPath), append)));
 			printer.println("===============projectPath->" + MavenUtil.i().getProjectInfo());
 			if (nodeConflicts.getConflicts().size() > 0) {
 				printer.print("+confJar  ");
