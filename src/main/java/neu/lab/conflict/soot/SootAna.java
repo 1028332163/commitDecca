@@ -42,10 +42,13 @@ public abstract class SootAna {
 	}
 
 	private boolean canAna(String jarFilePath) {
-		if(!jarFilePath.contains("\\asm\\")) {
-			return true;
+		if(jarFilePath.contains("\\asm\\")) {
+			return false;
 		}
-		return false;
+		if(jarFilePath.contains("org\\spark-project\\hive\\hive-exec")) {
+			return false;
+		}
+		return true;
 	}
 
 	protected void addGenArg(List<String> argsList) {

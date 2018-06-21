@@ -46,9 +46,9 @@ public class ClassDupRiskWriter {
 		}
 	}
 
-	public void writeByJar(String outPath) {
+	public void writeByJar(String outPath,boolean append) {
 		try {
-			PrintWriter printer = new PrintWriter(new BufferedWriter(new FileWriter(new File(outPath), true)));
+			PrintWriter printer = new PrintWriter(new BufferedWriter(new FileWriter(new File(outPath), append)));
 			printer.println("===============projectPath->" + MavenUtil.i().getProjectInfo());
 
 			for (DupClsJarPair jarPair : getJarPairs().getAllJarPair()) {

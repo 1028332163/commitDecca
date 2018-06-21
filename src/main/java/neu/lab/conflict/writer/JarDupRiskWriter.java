@@ -13,9 +13,9 @@ import neu.lab.conflict.vo.NodeConflict;
 
 public class JarDupRiskWriter {
 
-	public void write(String outPath) {
+	public void write(String outPath,boolean append) {
 		try {
-			PrintWriter printer = new PrintWriter(new BufferedWriter(new FileWriter(new File(outPath), true)));
+			PrintWriter printer = new PrintWriter(new BufferedWriter(new FileWriter(new File(outPath), append)));
 			printer.println("===============projectPath->" + MavenUtil.i().getProjectInfo());
 			for (NodeConflict nodeConflict : NodeConflicts.i().getConflicts()) {
 

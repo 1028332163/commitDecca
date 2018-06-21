@@ -89,6 +89,10 @@ public class NodeConflict {
 	public String getArtifactId() {
 		return artifactId;
 	}
+	
+	public String getSig() {
+		return groupId+":"+artifactId;
+	}
 	/**
 	 * @return first version is the used version
 	 */

@@ -46,13 +46,16 @@ public class SootCg extends SootAna {
 
 		try {
 			long startTime = System.currentTimeMillis();
-			
+
 			CgTf transformer = new CgTf(nodeAnaUnit);
 			PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", transformer));
 
 			SootUtil.modifyLogOut();
-
-			soot.Main.main(getArgs(nodeAnaUnit.getJarFilePaths().toArray(new String[0])).toArray(new String[0]));
+			try {
+				soot.Main.main(getArgs(nodeAnaUnit.getJarFilePaths().toArray(new String[0])).toArray(new String[0]));
+			} catch (Throwable t) {
+				MavenUtil.i().getLog().warn("can't call graph");
+			}
 
 			nodeAnaUnit.setRchedMthds(transformer.getRchMthds());
 
@@ -63,7 +66,7 @@ public class SootCg extends SootAna {
 			soot.G.reset();
 
 			runtime = runtime + (System.currentTimeMillis() - startTime) / 1000;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			MavenUtil.i().getLog().info("don't have entry for:" + nodeAnaUnit.toString());
 			nodeAnaUnit.setRchedMthds(new HashSet<String>());
 
@@ -110,7 +113,7 @@ class CgTf extends SceneTransformer {
 
 		entryClses = new HashSet<String>();
 		entryClses.addAll(SootUtil.getJarClasses(nodeRiskAna.getTopNode().getFilePath()));
-		if(entryClses.size()==0) {
+		if (entryClses.size() == 0) {
 			throw new Exception("don't have entry!");
 		}
 
@@ -171,27 +174,29 @@ class CgTf extends SceneTransformer {
 
 		// form calls and nds
 		CallGraph cg = Scene.v().getCallGraph();
-		Iterator<Edge> ite = cg.iterator();
-		while (ite.hasNext()) {
-			Edge edge = ite.next();
-			if (Conf.FLT_INTERFACE) {
-				if (edge.kind().name().equals("INTERFACE"))
-					continue;
-			}
-			String srcClsName = edge.src().getDeclaringClass().getName();
-			String tgtClsName = edge.tgt().getDeclaringClass().getName();
-			if (entryClses.contains(tgtClsName)) {
-				// edge to entry-jar
-			} else if (conflictJarClses.contains(srcClsName)) {
-				// edge from conflict-jar
-			} else {
-				String tgtMthdName = edge.tgt().getSignature();
-				String srcMthdName = edge.src().getSignature();
+		if (cg != null) {
+			Iterator<Edge> ite = cg.iterator();
+			while (ite.hasNext()) {
+				Edge edge = ite.next();
+				if (Conf.FLT_INTERFACE) {
+					if (edge.kind().name().equals("INTERFACE"))
+						continue;
+				}
+				String srcClsName = edge.src().getDeclaringClass().getName();
+				String tgtClsName = edge.tgt().getDeclaringClass().getName();
+				if (entryClses.contains(tgtClsName)) {
+					// edge to entry-jar
+				} else if (conflictJarClses.contains(srcClsName)) {
+					// edge from conflict-jar
+				} else {
+					String tgtMthdName = edge.tgt().getSignature();
+					String srcMthdName = edge.src().getSignature();
 
-				calls.add(new MethodCall(srcMthdName, tgtMthdName));
-				nds.add(new Node(srcMthdName, entryClses.contains(srcClsName)));
-				nds.add(new Node(tgtMthdName, entryClses.contains(tgtClsName)));
+					calls.add(new MethodCall(srcMthdName, tgtMthdName));
+					nds.add(new Node(srcMthdName, entryClses.contains(srcClsName)));
+					nds.add(new Node(tgtMthdName, entryClses.contains(tgtClsName)));
 
+				}
 			}
 		}
 

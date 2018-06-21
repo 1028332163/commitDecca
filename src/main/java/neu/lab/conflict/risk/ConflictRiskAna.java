@@ -11,6 +11,7 @@ import org.dom4j.tree.DefaultElement;
 
 import neu.lab.conflict.Conf;
 import neu.lab.conflict.container.FinalClasses;
+import neu.lab.conflict.graph.Reval;
 import neu.lab.conflict.util.MathUtil;
 import neu.lab.conflict.util.MavenUtil;
 import neu.lab.conflict.util.SootUtil;
@@ -73,18 +74,18 @@ public class ConflictRiskAna {
 			versionsEle.add(depJar.geJarConflictEle());
 		}
 
-		Element risksEle = conflictEle.addElement("RiskMethods");
-		risksEle.addAttribute("tip", "method that may be used but will not be loaded !");
-		if (riskLevel == 3 || riskLevel == 4) {
-			for (String rchedMthd : getRchedMthds()) {
-				if (!nodeConflict.getUsedDepJar().containsMthd(rchedMthd)) {
-					Element riskEle = risksEle.addElement("RiskMthd");
-					riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
-				}
-			}
-		} else {
-
-		}
+//		Element risksEle = conflictEle.addElement("RiskMethods");
+//		risksEle.addAttribute("tip", "method that may be used but will not be loaded !");
+//		if (riskLevel == 3 || riskLevel == 4) {
+//			for (String rchedMthd : getRchedMthds()) {
+//				if (!nodeConflict.getUsedDepJar().containsMthd(rchedMthd)) {
+//					Element riskEle = risksEle.addElement("RiskMthd");
+//					riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
+//				}
+//			}
+//		} else {
+//
+//		}
 		return conflictEle;
 	}
 
@@ -101,12 +102,16 @@ public class ConflictRiskAna {
 	}
 
 	public int getRiskLevel() {
+		
 		boolean loadSafe = true;
 		boolean othersSafe = true;
 		double ratio = MathUtil.getQuotient(nodeConflict.getUsedDepJar().getInnerMthds(getRchedMthds()).size(),
 				getRchedMthds().size());
 		if (getT_LOW() <= ratio && ratio < getT_HIGH()) {
 			loadSafe = false;
+		}
+		if(Reval.revalJar(MavenUtil.i().getProjectSig(), nodeConflict.getSig())!=0) {
+			return Reval.revalJar(MavenUtil.i().getProjectSig(), nodeConflict.getSig());
 		}
 		for (DepJar depJar : nodeConflict.getDepJars()) {
 			if (nodeConflict.getUsedDepJar() != depJar) {

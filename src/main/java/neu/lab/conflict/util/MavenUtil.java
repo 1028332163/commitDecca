@@ -88,6 +88,10 @@ public class MavenUtil {
 	public String getProjectGroupId() {
 		return mojo.project.getGroupId();
 	}
+	
+	public String getProjectSig() {
+		return mojo.project.getGroupId() + ":" + mojo.project.getArtifactId() + ":" + mojo.project.getVersion();
+	}
 
 	public String getProjectArtifactId() {
 		return mojo.project.getArtifactId();

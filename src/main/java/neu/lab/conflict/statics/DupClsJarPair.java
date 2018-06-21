@@ -89,6 +89,9 @@ public class DupClsJarPair {
 		return new ClsDupJarPairRisk(this, jarCgs.getDepJarCg(getJar1()), jarCgs.getDepJarCg(getJar2()));
 	}
 
+	public String getSig() {
+		return jar1.toString()+"+"+jar2.toString();
+	}
 	// @Override
 	// public int hashCode() {
 	// return jar1.hashCode() + jar2.hashCode();
