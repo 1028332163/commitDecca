@@ -77,10 +77,14 @@ public class ConflictRiskAna {
 		Element risksEle = conflictEle.addElement("RiskMethods");
 		risksEle.addAttribute("tip", "methods would be referenced but not be loaded");
 		if (riskLevel == 3 || riskLevel == 4) {
+			int cnt = 0;
 			for (String rchedMthd : getRchedMthds()) {
+				if(cnt==10)
+					break;
 				if (!nodeConflict.getUsedDepJar().containsMthd(rchedMthd)) {
 					Element riskEle = risksEle.addElement("RiskMthd");
 					riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
+					cnt++;
 				}
 			}
 		} else {

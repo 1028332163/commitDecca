@@ -42,39 +42,42 @@ public class ClsDupJarPairRisk {
 		conflictEle.addAttribute("riskLevel", "" + getRiskLevel());
 		conflictEle.add(jarPair.getJar1().getClsConflictEle(1));
 		conflictEle.add(jarPair.getJar2().getClsConflictEle(2));
-		// Element risksEle = conflictEle.addElement("RiskMethods");
-		// risksEle.addAttribute("tip", "method that may be used but will not be loaded
-		// !");
-		// for (String rchedMthd : getRchedMthds()) {
-		// if (!jarPair.getJar1().containsMthd(rchedMthd) ||
-		// !jarPair.getJar2().containsMthd(rchedMthd)) {
-		// Element riskEle = risksEle.addElement("RiskMthd");
-		// riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
-		// }
-		// }
+		Element risksEle = conflictEle.addElement("RiskMethods");
+		risksEle.addAttribute("tip", "methods would be referenced but not be loaded");
+		int cnt = 0;
+		for (String rchedMthd : getRchedMthds()) {
+			if (cnt == 10) {
+				break;
+			}
+			if (!jarPair.getJar1().containsMthd(rchedMthd) || !jarPair.getJar2().containsMthd(rchedMthd)) {
+				Element riskEle = risksEle.addElement("RiskMthd");
+				riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
+				cnt++;
+			}
+		}
 
 		return conflictEle;
 	}
 
 	private int getRiskLevel() {
-		
+
 		double ratio1 = MathUtil.getQuotient(jarPair.getJar1().getInnerMthds(getRchedMthds()).size(),
 				getRchedMthds().size());
 		double ratio2 = MathUtil.getQuotient(jarPair.getJar2().getInnerMthds(getRchedMthds()).size(),
 				getRchedMthds().size());
 		boolean jar1Risk = T_LOW <= ratio1 && ratio1 < T_HIGH;
 		boolean jar2Risk = T_LOW <= ratio2 && ratio2 < T_HIGH;
-		if(Reval.revalClass(MavenUtil.i().getProjectSig(), jarPair.getSig())!=0) {
+		if (Reval.revalClass(MavenUtil.i().getProjectSig(), jarPair.getSig()) != 0) {
 			return Reval.revalClass(MavenUtil.i().getProjectSig(), jarPair.getSig());
 		}
 		int level = 0;
 		if (jar1Risk || jar2Risk) {
 			if (jar1Risk && jar2Risk) {
-				level= 4;
+				level = 4;
 			}
-			level =  3;
+			level = 3;
 		} else {
-			level =  1;
+			level = 1;
 		}
 		return 1;
 	}
