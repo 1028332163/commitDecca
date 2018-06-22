@@ -24,6 +24,7 @@ import neu.lab.conflict.statics.DupClsJarPair;
 import neu.lab.conflict.statics.DupClsJarPairs;
 import neu.lab.conflict.util.MavenUtil;
 import neu.lab.conflict.util.UserConf;
+import neu.lab.conflict.vo.DepJar;
 import neu.lab.conflict.vo.NodeAdapter;
 import neu.lab.conflict.vo.NodeConflict;
 import neu.lab.conflict.writer.ClassDupRiskWriter;
@@ -69,14 +70,37 @@ public class DebugMojo extends ConflictMojo {
 
 	private void writeConflict() throws Exception {
 		PrintWriter printer = new PrintWriter(new FileWriter("D:\\cWS\\notepad++\\debug.txt"));
+		StringBuilder sb = new StringBuilder();
 		for (NodeConflict conflict : NodeConflicts.i().getConflicts()) {
+			
 			printer.println(conflict.getSig());
+			sb.append(System.lineSeparator());
+			sb.append(conflict.getSig()+System.lineSeparator());
+			for(DepJar depJar : conflict.getDepJars()) {
+				sb.append(depJar.toString()+"  "+depJar.isSelected()+System.lineSeparator());
+				for (NodeAdapter node : depJar.getNodeAdapters()) {
+					sb.append(node.getWholePath()+System.lineSeparator());
+				}
+			}
 		}
 		ClassDups classDups = new ClassDups(DepJars.i());
 		DupClsJarPairs jarPairs = new DupClsJarPairs(classDups);
 		for (DupClsJarPair jarPair : jarPairs.getAllJarPair()) {
 			printer.println(jarPair.getSig());
+			sb.append(System.lineSeparator());
+			sb.append(jarPair.getSig()+System.lineSeparator());
+			
+			sb.append(jarPair.getJar1().toString()+System.lineSeparator());
+			for(NodeAdapter node:jarPair.getJar1().getNodeAdapters()) {
+				sb.append(node.getWholePath()+System.lineSeparator());
+			}
+			
+			sb.append(jarPair.getJar2().toString()+System.lineSeparator());
+			for(NodeAdapter node:jarPair.getJar2().getNodeAdapters()) {
+				sb.append(node.getWholePath()+System.lineSeparator());
+			}
 		}
+		printer.println(sb.toString());
 		printer.close();
 	}
 

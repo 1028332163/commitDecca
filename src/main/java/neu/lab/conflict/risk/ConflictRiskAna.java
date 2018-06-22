@@ -74,18 +74,18 @@ public class ConflictRiskAna {
 			versionsEle.add(depJar.geJarConflictEle());
 		}
 
-//		Element risksEle = conflictEle.addElement("RiskMethods");
-//		risksEle.addAttribute("tip", "method that may be used but will not be loaded !");
-//		if (riskLevel == 3 || riskLevel == 4) {
-//			for (String rchedMthd : getRchedMthds()) {
-//				if (!nodeConflict.getUsedDepJar().containsMthd(rchedMthd)) {
-//					Element riskEle = risksEle.addElement("RiskMthd");
-//					riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
-//				}
-//			}
-//		} else {
-//
-//		}
+		Element risksEle = conflictEle.addElement("RiskMethods");
+		risksEle.addAttribute("tip", "methods would be referenced but not be loaded");
+		if (riskLevel == 3 || riskLevel == 4) {
+			for (String rchedMthd : getRchedMthds()) {
+				if (!nodeConflict.getUsedDepJar().containsMthd(rchedMthd)) {
+					Element riskEle = risksEle.addElement("RiskMthd");
+					riskEle.addText(rchedMthd.replace('<', ' ').replace('>', ' '));
+				}
+			}
+		} else {
+
+		}
 		return conflictEle;
 	}
 
@@ -107,6 +107,7 @@ public class ConflictRiskAna {
 		boolean othersSafe = true;
 		double ratio = MathUtil.getQuotient(nodeConflict.getUsedDepJar().getInnerMthds(getRchedMthds()).size(),
 				getRchedMthds().size());
+//		MavenUtil.i().getLog().info("load ratio:"+ratio);
 		if (getT_LOW() <= ratio && ratio < getT_HIGH()) {
 			loadSafe = false;
 		}
@@ -116,6 +117,7 @@ public class ConflictRiskAna {
 		for (DepJar depJar : nodeConflict.getDepJars()) {
 			if (nodeConflict.getUsedDepJar() != depJar) {
 				ratio = MathUtil.getQuotient(depJar.getInnerMthds(getRchedMthds()).size(), getRchedMthds().size());
+//				MavenUtil.i().getLog().info("other ratio:"+ratio);
 				if (getT_LOW() <= ratio && ratio < getT_HIGH()) {
 					othersSafe = false;
 					break;
@@ -282,6 +284,9 @@ public class ConflictRiskAna {
 	}
 
 	private boolean useOldAl() {
+		if("neu.lab".equals(MavenUtil.i().getProjectGroupId())) {
+			return true;
+		}
 		return MavenUtil.i().getProjectGroupId().equals("org.apache.metamodel")
 				&& MavenUtil.i().getProjectArtifactId().equals("MetaModel-elasticsearch-rest");
 	}
