@@ -48,6 +48,9 @@ public abstract class SootAna {
 		if(jarFilePath.contains("org\\spark-project\\hive\\hive-exec")) {
 			return false;
 		}
+		if(jarFilePath.contains("org\\apache\\hive\\hive-exec")) {
+			return false;
+		}
 		return true;
 	}
 

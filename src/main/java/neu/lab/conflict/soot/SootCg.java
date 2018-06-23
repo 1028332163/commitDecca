@@ -119,8 +119,8 @@ class CgTf extends SceneTransformer {
 
 		conflictJarClses = new HashSet<String>();
 		conflictJarClses.addAll(SootUtil.getJarClasses(nodeRiskAna.getBottomNode().getFilePath()));
-		MavenUtil.i().getLog()
-				.info("entry-Class size:" + entryClses.size() + " duplicate-class size:" + conflictJarClses.size());
+//		MavenUtil.i().getLog()
+//				.info("entry-Class size:" + entryClses.size() + " duplicate-class size:" + conflictJarClses.size());
 	}
 
 	@Override
