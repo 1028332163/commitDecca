@@ -40,6 +40,14 @@ public class Reval {
 				return 2;
 			}
 		}
+		if("nl.nlighten:tomcat_exporter_client:0.0.7-SNAPSHOT".equals(project)) {
+			if("org.apache.tomcat:tomcat-util-scan:8.5.24:+org.apache.tomcat.embed:tomcat-embed-core:8.5.11:".equals(conflict)) {
+				return 2;
+			}
+			if("org.apache.tomcat.embed:tomcat-embed-core:8.5.11:+org.apache.tomcat:tomcat-catalina:8.5.24:".equals(conflict)) {
+				return 2;
+			}
+		}
 		return 0;
 	}
 	
