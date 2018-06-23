@@ -74,6 +74,23 @@ public class Reval {
 				return 1;
 			}
 		}
+		if("org.apache.activemq:artemis-cdi-client:2.5.0".equals(project)) {
+			if("commons-logging:commons-logging".equals(conflict)) {
+				return 1;
+			}
+			if("io.netty:netty-common".equals(conflict)) {
+				return 1;
+			}
+			if("commons-beanutils:commons-beanutils".equals(conflict)) {
+				return 1;
+			}
+			if("io.netty:netty-codec".equals(conflict)) {
+				return 1;
+			}
+			if("commons-collections:commons-collections".equals(conflict)) {
+				return 1;
+			}
+		}
 		return 0;
 	}
 }

@@ -100,6 +100,8 @@ public class DebugMojo extends ConflictMojo {
 				sb.append(node.getWholePath()+System.lineSeparator());
 			}
 		}
+		printer.println();
+		printer.println();
 		printer.println(MavenUtil.i().getProjectInfo());
 		printer.println(sb.toString());
 		printer.close();
