@@ -291,8 +291,8 @@ public class ConflictRiskAna {
 		if("neu.lab".equals(MavenUtil.i().getProjectGroupId())) {
 			return true;
 		}
-		return MavenUtil.i().getProjectGroupId().equals("org.apache.metamodel")
-				&& MavenUtil.i().getProjectArtifactId().equals("MetaModel-elasticsearch-rest");
+		return "org.apache.metamodel".equals(MavenUtil.i().getProjectGroupId())
+				&& "MetaModel-elasticsearch-rest".equals(MavenUtil.i().getProjectArtifactId());
 	}
 
 

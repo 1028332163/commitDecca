@@ -91,6 +91,14 @@ public class Reval {
 				return 1;
 			}
 		}
+		if("org.apache.apex:apex-engine:3.6.0".equals(project)) {
+			if("commons-io:commons-io".equals(conflict)) {
+				return 1;
+			}
+			if("commons-lang:commons-lang".equals(conflict)) {
+				return 1;
+			}
+		}
 		return 0;
 	}
 }
