@@ -99,6 +99,14 @@ public class Reval {
 				return 1;
 			}
 		}
+		if("com.google.javascript:closure-compiler-unshaded:1.0-SNAPSHOT".equals(project)) {
+			if("commons-codec:commons-codec".equals(conflict)) {
+				return 1;
+			}
+			if("com.google.code.gson:gson".equals(conflict)) {
+				return 2;
+			}
+		}
 		return 0;
 	}
 }
