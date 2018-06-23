@@ -35,6 +35,11 @@ public class Reval {
 				return 3;
 			}
 		}
+		if("org.springframework.data:spring-data-solr:3.0.0.RELEASE".equals(project)) {
+			if("javax.servlet:servlet-api:3.0-alpha-1:+javax.servlet:javax.servlet-api:3.1.0:".equals(conflict)) {
+				return 2;
+			}
+		}
 		return 0;
 	}
 	
@@ -119,6 +124,14 @@ public class Reval {
 		}
 		if("org.apache.brooklyn:brooklyn-rest-client:1.0.0-SNAPSHOT".equals(project)) {
 			if("com.fasterxml.jackson.core:jackson-core".equals(conflict)) {
+				return 1;
+			}
+		}
+		if("org.springframework.data:spring-data-solr:3.0.0.RELEASE".equals(project)) {
+			if("commons-lang:commons-lang".equals(conflict)) {
+				return 1;
+			}
+			if("org.slf4j:slf4j-api".equals(conflict)) {
 				return 1;
 			}
 		}
