@@ -15,6 +15,16 @@ public class Reval {
 				return 2;
 			}
 		}
+		if("org.wicketstuff:wicketstuff-closure-compiler:8.0.0-M8".equals(project)) {
+			if("com.google.code.gson:gson:2.8.2:+com.google.javascript:closure-compiler:v20170910:".equals(conflict)) {
+				return 2;
+			}
+		}
+		if("io.dashbase.clue:clue:6.6.2-1.0.0".equals(project)) {
+			if("commons-beanutils:commons-beanutils-core:1.8.0:+commons-beanutils:commons-beanutils:1.7.0:".equals(conflict)) {
+				return 2;
+			}
+		}
 		return 0;
 	}
 	
@@ -36,6 +46,31 @@ public class Reval {
 				return 1;
 			}
 			if("com.fasterxml.jackson.core:jackson-core".equals(conflict)) {
+				return 1;
+			}
+		}
+		if("org.wicketstuff:wicketstuff-closure-compiler:8.0.0-M8".equals(project)) {
+			if("com.google.code.gson:gson".equals(conflict)) {
+				return 1;
+			}
+			if("com.google.protobuf:protobuf-java".equals(conflict)) {
+				return 1;
+			}
+			if("commons-io:commons-io".equals(conflict)) {
+				return 1;
+			}
+			if("org.hamcrest:hamcrest-core".equals(conflict)) {
+				return 1;
+			}
+		}
+		if("io.dashbase.clue:clue:6.6.2-1.0.0".equals(project)) {
+			if("commons-lang:commons-lang".equals(conflict)) {
+				return 1;
+			}
+			if("org.apache.commons:commons-math3".equals(conflict)) {
+				return 1;
+			}
+			if("commons-collections:commons-collections".equals(conflict)) {
 				return 1;
 			}
 		}
