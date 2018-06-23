@@ -58,7 +58,7 @@ public class DetectMojo extends ConflictMojo {
 				getLog().error("resultFileType can be xml/csv , can't be " + resultFileType);
 			}
 			getLog().info("time to deconstruct jar :" + JarAna.runtime);
-			getLog().info("time to compute call-graph :" + SootCg.runtime);
+//			getLog().info("time to compute call-graph :" + SootCg.runtime);
 			
 		}
 

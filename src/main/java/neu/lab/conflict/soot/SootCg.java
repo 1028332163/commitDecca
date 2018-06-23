@@ -67,7 +67,7 @@ public class SootCg extends SootAna {
 
 			runtime = runtime + (System.currentTimeMillis() - startTime) / 1000;
 		} catch (Exception e) {
-			MavenUtil.i().getLog().info("don't have entry for:" + nodeAnaUnit.toString());
+//			MavenUtil.i().getLog().info("don't have entry for:" + nodeAnaUnit.toString());
 			nodeAnaUnit.setRchedMthds(new HashSet<String>());
 
 			nodeAnaUnit.setGraph(new Graph(new HashSet<Node>(), new ArrayList<MethodCall>()));

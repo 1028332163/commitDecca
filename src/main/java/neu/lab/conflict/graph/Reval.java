@@ -25,6 +25,16 @@ public class Reval {
 				return 2;
 			}
 		}
+		if("com.orientechnologies:orientdb-community-tp2:3.0.0".equals(project)) {
+			if("com.orientechnologies:orientdb-graphdb:3.0.0:+com.orientechnologies:orientdb-server:3.0.0:".equals(conflict)) {
+				return 4;
+			}
+		}
+		if("org.apache.brooklyn:brooklyn-rest-client:1.0.0-SNAPSHOT".equals(project)) {
+			if("org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec:1.0.0.Final:+javax.ws.rs:javax.ws.rs-api:2.0.1:".equals(conflict)) {
+				return 3;
+			}
+		}
 		return 0;
 	}
 	
@@ -105,6 +115,11 @@ public class Reval {
 			}
 			if("com.google.code.gson:gson".equals(conflict)) {
 				return 2;
+			}
+		}
+		if("org.apache.brooklyn:brooklyn-rest-client:1.0.0-SNAPSHOT".equals(project)) {
+			if("com.fasterxml.jackson.core:jackson-core".equals(conflict)) {
+				return 1;
 			}
 		}
 		return 0;
