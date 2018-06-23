@@ -49,7 +49,18 @@ public class DupClsJarPair {
 	public DepJar getJar2() {
 		return jar2;
 	}
-
+public Set<String> getMayThrownMthds(){
+	Set<String> thrownMthds = new HashSet<String>();
+	for(String mthd:jar1.getAllMthd()) {
+		if(!jar2.containsMthd(mthd))
+			thrownMthds.add(mthd);
+	}
+	for(String mthd:jar2.getAllMthd()) {
+		if(!jar1.containsMthd(mthd))
+			thrownMthds.add(mthd);
+	}
+	return thrownMthds;
+}
 	public String getRiskString() {
 		StringBuilder sb = new StringBuilder("risk for jar-pair:");
 		sb.append("<" + jar1.toString() + ">");

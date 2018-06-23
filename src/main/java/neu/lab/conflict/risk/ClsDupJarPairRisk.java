@@ -36,16 +36,20 @@ public class ClsDupJarPairRisk {
 	}
 
 	public Element getConflictElement() {
+		int riskLevel = getRiskLevel();	
 		Element conflictEle = new DefaultElement("conflict");
 		conflictEle.addAttribute("jar-1", jarPair.getJar1().toString());
 		conflictEle.addAttribute("jar-2", jarPair.getJar2().toString());
-		conflictEle.addAttribute("riskLevel", "" + getRiskLevel());
+		conflictEle.addAttribute("riskLevel", "" + riskLevel);
 		conflictEle.add(jarPair.getJar1().getClsConflictEle(1));
 		conflictEle.add(jarPair.getJar2().getClsConflictEle(2));
 		Element risksEle = conflictEle.addElement("RiskMethods");
 		risksEle.addAttribute("tip", "methods would be referenced but not be loaded");
+		if (riskLevel == -1) {
+			return null;
+		}
 		int cnt = 0;
-		for (String rchedMthd : getRchedMthds()) {
+		for (String rchedMthd : getPrintMthds()) {
 			if (cnt == 10) {
 				break;
 			}
@@ -57,6 +61,13 @@ public class ClsDupJarPairRisk {
 		}
 
 		return conflictEle;
+	}
+
+	private Set<String> getPrintMthds() {
+		if (getRchedMthds().size() > 0) {
+			return getRchedMthds();
+		}
+		return jarPair.getMayThrownMthds();
 	}
 
 	private int getRiskLevel() {
@@ -79,6 +90,7 @@ public class ClsDupJarPairRisk {
 		} else {
 			level = 1;
 		}
+		ratio1 = ratio1 + level;
 		return 1;
 	}
 

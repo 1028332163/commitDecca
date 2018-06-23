@@ -19,6 +19,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import neu.lab.conflict.container.DepJars;
 import neu.lab.conflict.container.NodeAdapters;
 import neu.lab.conflict.container.NodeConflicts;
+import neu.lab.conflict.graph.Reval;
 import neu.lab.conflict.statics.ClassDups;
 import neu.lab.conflict.statics.DupClsJarPair;
 import neu.lab.conflict.statics.DupClsJarPairs;
@@ -86,6 +87,8 @@ public class DebugMojo extends ConflictMojo {
 		ClassDups classDups = new ClassDups(DepJars.i());
 		DupClsJarPairs jarPairs = new DupClsJarPairs(classDups);
 		for (DupClsJarPair jarPair : jarPairs.getAllJarPair()) {
+			if(-1==Reval.revalClass(MavenUtil.i().getProjectSig(), jarPair.getSig()))
+				continue;
 			printer.println(jarPair.getSig());
 			sb.append(System.lineSeparator());
 			sb.append(jarPair.getSig()+System.lineSeparator());

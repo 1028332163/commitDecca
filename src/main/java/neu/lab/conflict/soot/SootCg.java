@@ -114,7 +114,7 @@ class CgTf extends SceneTransformer {
 		entryClses = new HashSet<String>();
 		entryClses.addAll(SootUtil.getJarClasses(nodeRiskAna.getTopNode().getFilePath()));
 		if (entryClses.size() == 0) {
-			throw new Exception("don't have entry!");
+//			throw new Exception("don't have entry!");
 		}
 
 		conflictJarClses = new HashSet<String>();

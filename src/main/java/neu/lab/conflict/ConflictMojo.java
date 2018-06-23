@@ -54,26 +54,26 @@ public abstract class ConflictMojo extends AbstractMojo {
 	DependencyNode root;
 
 	@Parameter(defaultValue = "${project.compileSourceRoots}", readonly = true, required = true)
-	public List<String> compileSourceRoots;	
-	
-	@Parameter( property = "ignoreTestScope", defaultValue = "false" )
+	public List<String> compileSourceRoots;
+
+	@Parameter(property = "ignoreTestScope", defaultValue = "false")
 	public boolean ignoreTestScope;
 
-	@Parameter( property = "ignoreProvidedScope", defaultValue = "false" )
+	@Parameter(property = "ignoreProvidedScope", defaultValue = "false")
 	public boolean ignoreProvidedScope;
-	
-	@Parameter( property = "ignoreRuntimeScope", defaultValue = "false" )
+
+	@Parameter(property = "ignoreRuntimeScope", defaultValue = "false")
 	public boolean ignoreRuntimeScope;
-	
-	@Parameter( property = "append", defaultValue = "false" )
+
+	@Parameter(property = "append", defaultValue = "false")
 	public boolean append;
-	
-	@Parameter( property = "t_low" )
+
+	@Parameter(property = "t_low")
 	public Double T_LOW = null;
-	
-	@Parameter( property = "t_high")
+
+	@Parameter(property = "t_high")
 	public Double T_HIGH = null;
-	
+
 	protected void initGlobalVar() {
 		MavenUtil.i().setMojo(this);
 
@@ -85,9 +85,10 @@ public abstract class ConflictMojo extends AbstractMojo {
 
 	public void execute() throws MojoExecutionException {
 		this.getLog().info("method detect start:");
-		if ("jar".equals(project.getPackaging())||"war".equals(project.getPackaging())||"bundle".equals(project.getPackaging())) {
+		if ("jar".equals(project.getPackaging()) || "war".equals(project.getPackaging())
+				|| "bundle".equals(project.getPackaging()) || "maven-plugin".equals(project.getPackaging())) {
 			try {
-//				project.
+				// project.
 				root = dependencyTreeBuilder.buildDependencyTree(project, localRepository, null);
 			} catch (DependencyTreeBuilderException e) {
 				throw new MojoExecutionException(e.getMessage());
@@ -95,12 +96,14 @@ public abstract class ConflictMojo extends AbstractMojo {
 			initGlobalVar();
 			run();
 		} else {
-			this.getLog().info("this project fail because package type is neither jar nor war:" + project.getGroupId() + ":"
-					+ project.getArtifactId() + ":" + project.getVersion() + "@" + project.getFile().getAbsolutePath());
+			this.getLog()
+					.info("this project fail because package type is neither jar nor war:" + project.getGroupId() + ":"
+							+ project.getArtifactId() + ":" + project.getVersion() + "@"
+							+ project.getFile().getAbsolutePath());
 		}
 
 		this.getLog().debug("method detect end");
-		
+
 	}
 
 	public abstract void run();

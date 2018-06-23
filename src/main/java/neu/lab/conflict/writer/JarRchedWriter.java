@@ -71,7 +71,10 @@ public class JarRchedWriter {
 				DupClsJarPairs jarPairs = new DupClsJarPairs(classDups);
 				DepJarCgs jarCgs = new DepJarCgs();
 				for (DupClsJarPair jarPair : jarPairs.getAllJarPair()) {
-					clsConfs.add(jarPair.getPairRisk(jarCgs).getConflictElement());
+					Element conflict = jarPair.getPairRisk(jarCgs).getConflictElement();
+					if(conflict!=null) {
+						clsConfs.add(conflict);
+					}
 				}
 			}
 			xmlWriter.write(document);

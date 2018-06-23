@@ -7,6 +7,9 @@ public class Reval {
 	public static int revalClass(String project,String conflict) {
 		MavenUtil.i().getLog().info("project:"+project);
 		MavenUtil.i().getLog().info("pair-conflict:"+conflict);
+		if(conflict==null) {
+			return 0;
+		}
 		if("org.apache.beam:beam-sdks-java-core:2.2.0".equals(project)) {
 			if("org.mockito:mockito-all:1.9.5:+org.hamcrest:hamcrest-all:1.3:".equals(conflict)) {
 				return 2;
@@ -48,12 +51,29 @@ public class Reval {
 				return 2;
 			}
 		}
+		if("com.facebook.presto.hive:hive-apache:1.2.2-1".equals(project)) {
+			if(conflict.contains("org.apache.hive:hive-exec:1.2.2:")) {
+				if(conflict.contains("org.apache.thrift:libthrift:0.9.1:")) {
+					return 2;
+				}
+				if(conflict.contains("com.google.guava:guava:14.0.1")) {
+					return 1;
+				}
+				if(conflict.contains("org.apache.hive:hive-common:1.2.2:")) {
+					return 1;
+				}
+				return -1;
+			}
+		}
 		return 0;
 	}
 	
 	public static int revalJar(String project,String conflict) {
 		MavenUtil.i().getLog().info("project:"+project);
 		MavenUtil.i().getLog().info("jar-conflict:"+conflict);
+		if(conflict==null) {
+			return 0;
+		}
 		if("org.apache.beam:beam-sdks-java-core:2.2.0".equals(project)) {
 			if("org.slf4j:slf4j-api".equals(conflict)) {
 				return 1;
