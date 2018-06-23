@@ -143,6 +143,11 @@ public class Reval {
 				return 1;
 			}
 		}
+		if("org.apache.hadoop:hadoop-minikdc:3.0.0".equals(project)) {
+			if("commons-io:commons-io".equals(conflict)) {
+				return 4;
+			}
+		}
 		return 0;
 	}
 }

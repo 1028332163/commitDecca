@@ -103,4 +103,10 @@ public class MavenUtil {
 	public ConflictMojo getMojo() {
 		return mojo;
 	}
+	public Double getT_LOW() {
+		return mojo.T_LOW;
+	}
+	public Double getT_HIGH() {
+		return mojo.T_HIGH;
+	}
 }

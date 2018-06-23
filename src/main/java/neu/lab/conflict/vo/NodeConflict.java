@@ -37,6 +37,18 @@ public class NodeConflict {
 		return usedDepJar;
 
 	}
+	
+	public Set<String> getThrownMthds(){
+		Set<String> thrownMthds = new HashSet<String>();
+		for(DepJar depJar:depJars) {
+			for(String mthd:depJar.getAllMthd()) {
+				if(!getUsedDepJar().containsMthd(mthd)) {
+					thrownMthds.add(mthd);
+				}
+			}
+		}
+		return thrownMthds;
+	}
 
 	public void addNode(NodeAdapter nodeAdapter) {
 		nodes.add(nodeAdapter);

@@ -68,6 +68,12 @@ public abstract class ConflictMojo extends AbstractMojo {
 	@Parameter( property = "append", defaultValue = "false" )
 	public boolean append;
 	
+	@Parameter( property = "t_low" )
+	public Double T_LOW = null;
+	
+	@Parameter( property = "t_high")
+	public Double T_HIGH = null;
+	
 	protected void initGlobalVar() {
 		MavenUtil.i().setMojo(this);
 

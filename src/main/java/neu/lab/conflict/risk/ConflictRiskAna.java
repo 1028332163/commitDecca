@@ -36,10 +36,15 @@ public class ConflictRiskAna {
 
 
 	private double getT_HIGH() {
+		if(null!=MavenUtil.i().getT_HIGH())
+			return MavenUtil.i().getT_HIGH();
 		return T_HIGH;
 	}
 	
 	private double getT_LOW() {
+		if(null!=MavenUtil.i().getT_LOW()) {
+			return MavenUtil.i().getT_LOW();
+		}
 		if (useOldAl()) {
 			return 0;
 		} else {
@@ -78,7 +83,7 @@ public class ConflictRiskAna {
 		risksEle.addAttribute("tip", "methods would be referenced but not be loaded");
 		if (riskLevel == 3 || riskLevel == 4) {
 			int cnt = 0;
-			for (String rchedMthd : getRchedMthds()) {
+			for (String rchedMthd : getPrintRisk()) {
 				if(cnt==10)
 					break;
 				if (!nodeConflict.getUsedDepJar().containsMthd(rchedMthd)) {
@@ -91,6 +96,13 @@ public class ConflictRiskAna {
 
 		}
 		return conflictEle;
+	}
+	
+	public Set<String> getPrintRisk(){
+		if(getRchedMthds().size()>0) {
+			return getRchedMthds();
+		}
+		return nodeConflict.getThrownMthds();
 	}
 
 	public String getRiskString() {
