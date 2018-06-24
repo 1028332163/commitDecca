@@ -51,6 +51,9 @@ public abstract class SootAna {
 		if(jarFilePath.contains("org\\apache\\hive\\hive-exec")) {
 			return false;
 		}
+		if(jarFilePath.contains("hbase\\hbase-client\\1.2.3\\hbase-client-1.2.3.jar")) {
+			return false;
+		}
 		return true;
 	}
 

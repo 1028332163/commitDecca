@@ -79,6 +79,12 @@ public class Reval {
 		if ("org.apache.oozie:oozie-core:5.0.0-beta1".equals(project)) {
 			return -1;
 		}
+		if ("com.horizon:cm:0.0.1-SNAPSHOT".equals(project)) {
+			if (conflict.contains("javax.websocket:javax.websocket-api:1.1:")
+					&& conflict.contains("org.apache.tomcat:tomcat-websocket-api:7.0.47:")) {
+				return 4;
+			}
+		}
 		return 0;
 	}
 
@@ -194,6 +200,27 @@ public class Reval {
 			}
 			if ("commons-collections:commons-collections".equals(conflict)) {
 				return 1;
+			}
+		}
+		if ("com.facebook.presto.hive:hive-apache:1.2.2-1".equals(project)) {
+			if ("org.codehaus.jackson:jackson-mapper-asl".equals(conflict)) {
+				return 1;
+			}
+		}
+		if ("com.horizon:cm:0.0.1-SNAPSHOT".equals(project)) {
+			if ("com.fasterxml.jackson.core:jackson-core".equals(conflict)) {
+				return 1;
+			}
+			if ("commons-logging:commons-logging".equals(conflict)) {
+				return 1;
+			}
+		}
+		if ("org.eclipse.jetty:jetty-jspc-maven-plugin:9.2.23.v20171218".equals(project)) {
+			if ("org.apache.maven:maven-project".equals(conflict)) {
+				return 2;
+			}
+			if ("org.apache.maven:maven-model".equals(conflict)) {
+				return 2;
 			}
 		}
 		return 0;
