@@ -51,14 +51,16 @@ public abstract class SootAna {
 		if(jarFilePath.contains("org\\apache\\hive\\hive-exec")) {
 			return false;
 		}
-		if(jarFilePath.contains("hbase\\hbase-client\\1.2.3\\hbase-client-1.2.3.jar")) {
+		if(jarFilePath.contains("hbase\\hbase-client\\1.2.3")) {
+			return false;
+		}
+		if(jarFilePath.contains("curator\\apache-curator\\2.6.0")) {
 			return false;
 		}
 		return true;
 	}
 
 	protected void addGenArg(List<String> argsList) {
-
 		argsList.add("-ire");
 		argsList.add("-app");
 		argsList.add("-allow-phantom-refs");
