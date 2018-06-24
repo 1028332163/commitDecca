@@ -141,7 +141,7 @@ public class Reval {
 			}
 			return -1;
 		}
-		if ("org.apache.bahir:spark-sql-streaming-mqtt_2.11:2.2.0".equals(project)) {
+		if ("org.apache.carbondata:carbondata-hive:1.3.0".equals(project)) {
 			if (conflict.contains("org.objenesis:objenesis:2.1:")
 					&& conflict.contains("org.spark-project.hive:hive-exec:1.2.1.spark2:")) {
 				return 1;

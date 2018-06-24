@@ -84,7 +84,7 @@ public abstract class ConflictMojo extends AbstractMojo {
 	}
 
 	public void execute() throws MojoExecutionException {
-		this.getLog().info("method detect start:");
+		this.getLog().info("decca start...");
 		if ("jar".equals(project.getPackaging()) || "war".equals(project.getPackaging())
 				|| "bundle".equals(project.getPackaging()) || "maven-plugin".equals(project.getPackaging())) {
 			try {

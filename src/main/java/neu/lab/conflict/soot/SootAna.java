@@ -31,6 +31,7 @@ public abstract class SootAna {
 				if (canAna(jarFilePath)) {
 					argsList.add("-process-dir");
 					argsList.add(jarFilePath);
+					MavenUtil.i().getLog().warn("add classpath :" + jarFilePath);
 				}else {
 //					MavenUtil.i().getLog().warn("add classpath error:can't analysis file " + jarFilePath);
 				}
@@ -42,6 +43,9 @@ public abstract class SootAna {
 	}
 
 	private boolean canAna(String jarFilePath) {
+		if(jarFilePath.endsWith(".pom")) {
+			return false;
+		}
 		if(jarFilePath.contains("\\asm\\")) {
 			return false;
 		}

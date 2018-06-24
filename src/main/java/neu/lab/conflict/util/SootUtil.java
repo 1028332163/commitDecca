@@ -67,7 +67,7 @@ public class SootUtil {
 					MavenUtil.i().getLog().warn(classPath + "is illegal classpath");
 				}
 			} else {
-				MavenUtil.i().getLog().warn(classPath + "doesn't exist in local");
+//				MavenUtil.i().getLog().warn(classPath + "doesn't exist in local");
 			}
 
 		}

@@ -51,11 +51,7 @@ public class SootCg extends SootAna {
 			PackManager.v().getPack("wjtp").add(new Transform("wjtp.myTrans", transformer));
 
 			SootUtil.modifyLogOut();
-			try {
-				soot.Main.main(getArgs(nodeAnaUnit.getJarFilePaths().toArray(new String[0])).toArray(new String[0]));
-			} catch (Throwable t) {
-				MavenUtil.i().getLog().warn("can't call graph");
-			}
+			soot.Main.main(getArgs(nodeAnaUnit.getJarFilePaths().toArray(new String[0])).toArray(new String[0]));
 
 			nodeAnaUnit.setRchedMthds(transformer.getRchMthds());
 
@@ -67,7 +63,14 @@ public class SootCg extends SootAna {
 
 			runtime = runtime + (System.currentTimeMillis() - startTime) / 1000;
 		} catch (Exception e) {
-//			MavenUtil.i().getLog().info("don't have entry for:" + nodeAnaUnit.toString());
+			// MavenUtil.i().getLog().info("don't have entry for:" +
+			// nodeAnaUnit.toString());
+//			try {
+//				Thread.sleep(10*1000);
+//			} catch (InterruptedException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 			nodeAnaUnit.setRchedMthds(new HashSet<String>());
 
 			nodeAnaUnit.setGraph(new Graph(new HashSet<Node>(), new ArrayList<MethodCall>()));
@@ -114,13 +117,14 @@ class CgTf extends SceneTransformer {
 		entryClses = new HashSet<String>();
 		entryClses.addAll(SootUtil.getJarClasses(nodeRiskAna.getTopNode().getFilePath()));
 		if (entryClses.size() == 0) {
-//			throw new Exception("don't have entry!");
+			 throw new Exception("don't have entry!");
 		}
 
 		conflictJarClses = new HashSet<String>();
 		conflictJarClses.addAll(SootUtil.getJarClasses(nodeRiskAna.getBottomNode().getFilePath()));
-//		MavenUtil.i().getLog()
-//				.info("entry-Class size:" + entryClses.size() + " duplicate-class size:" + conflictJarClses.size());
+		// MavenUtil.i().getLog()
+		// .info("entry-Class size:" + entryClses.size() + " duplicate-class size:" +
+		// conflictJarClses.size());
 	}
 
 	@Override

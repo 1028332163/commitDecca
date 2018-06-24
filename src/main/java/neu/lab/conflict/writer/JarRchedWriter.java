@@ -1,6 +1,7 @@
 package neu.lab.conflict.writer;
 
 import java.io.CharArrayWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 
@@ -50,6 +51,10 @@ public class JarRchedWriter {
 			if (outPath == null) {
 				fileWriter = new CharArrayWriter();
 			} else {
+				File outFile = new File(outPath);
+				if(!outFile.getParentFile().exists()) {
+					outFile.getParentFile().mkdirs();
+				}
 				fileWriter = new FileWriter(outPath, append);
 			}
 			OutputFormat format = OutputFormat.createPrettyPrint();
