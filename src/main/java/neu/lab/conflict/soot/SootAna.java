@@ -32,10 +32,10 @@ public abstract class SootAna {
 					argsList.add("-process-dir");
 					argsList.add(jarFilePath);
 				}else {
-					MavenUtil.i().getLog().warn("add classpath error:can't analysis file " + jarFilePath);
+//					MavenUtil.i().getLog().warn("add classpath error:can't analysis file " + jarFilePath);
 				}
 			} else {
-				MavenUtil.i().getLog().warn("add classpath error:doesn't exist file " + jarFilePath);
+//				MavenUtil.i().getLog().warn("add classpath error:doesn't exist file " + jarFilePath);
 			}
 
 		}
