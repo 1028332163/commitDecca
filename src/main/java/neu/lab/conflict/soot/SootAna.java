@@ -31,7 +31,7 @@ public abstract class SootAna {
 				if (canAna(jarFilePath)) {
 					argsList.add("-process-dir");
 					argsList.add(jarFilePath);
-					MavenUtil.i().getLog().warn("add classpath :" + jarFilePath);
+					MavenUtil.i().getLog().info("add classpath :" + jarFilePath);
 				}else {
 //					MavenUtil.i().getLog().warn("add classpath error:can't analysis file " + jarFilePath);
 				}
@@ -59,6 +59,12 @@ public abstract class SootAna {
 			return false;
 		}
 		if(jarFilePath.contains("curator\\apache-curator\\2.6.0")) {
+			return false;
+		}
+		if(jarFilePath.contains("spark\\spark-network-common_2.11\\2.2.1")) {
+			return false;
+		}
+		if(jarFilePath.contains("spark\\spark-network-shuffle_2.11\\2.2.1")) {
 			return false;
 		}
 		return true;
